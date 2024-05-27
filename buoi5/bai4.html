@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Tính hóa đơn cáp</title>
+</head>
+<body>
+  <h1>Tính hóa đơn cáp</h1>
+  <label for="maKhachHang">Mã khách hàng:</label>
+  <input type="text" id="maKhachHang" required><br><br>
+  <label for="loaiKhachHang">Loại khách hàng:</label>
+  <select id="loaiKhachHang" onchange="toggleSoKetNoi()">
+    <option value="nhaDan">Nhà dân</option>
+    <option value="doanhNghiep">Doanh nghiệp</option>
+  </select><br><br>
+  <label for="soKetNoi">Số kết nối:</label>
+  <input type="number" id="soKetNoi" min="0" style="display: none;"><br><br>
+  <label for="soKenhCaoCap">Số kênh cao cấp:</label>
+  <input type="number" id="soKenhCaoCap" min="0" required><br><br>
+  <button onclick="tinhHoaDon()">Tính hóa đơn</button><br><br>
+  <p id="ketQua"></p>
+  <p id="tongPhi"></p>
+
+  <script>
+    function tinhHoaDon() {
+      var maKhachHang = document.getElementById("maKhachHang").value;
+      var loaiKhachHang = document.getElementById("loaiKhachHang").value;
+      var soKetNoi = 0;
+      var soKenhCaoCap = parseFloat(document.getElementById("soKenhCaoCap").value);
+      var phiXuLyHoaDon = 0;
+      var phiDichVuCoBan = 0;
+      var phiThueKenhCaoCap = 0;
+      if (loaiKhachHang === "doanhNghiep") {
+        soKetNoi = parseInt(document.getElementById("soKetNoi").value);
+        phiXuLyHoaDon = 15;
+        phiDichVuCoBan = 75 + (soKetNoi - 10) * 5;
+        phiThueKenhCaoCap = 50 * soKenhCaoCap;
+      } else if (loaiKhachHang === "nhaDan") {
+        phiXuLyHoaDon = 4.5;
+        phiDichVuCoBan = 20.5;
+        phiThueKenhCaoCap = 7.5 * soKenhCaoCap;
+      }
+      var tongPhi = phiXuLyHoaDon + phiDichVuCoBan + phiThueKenhCaoCap;
+      document.getElementById("ketQua").innerHTML = "Mã khách hàng: " + maKhachHang;
+      document.getElementById("tongPhi").innerHTML = "Tổng phí: " + tongPhi + "$";
+    }
+    function toggleSoKetNoi() {
+      var loaiKhachHang = document.getElementById("loaiKhachHang").value;
+      var inputSoKetNoi = document.getElementById("soKetNoi");
+      if (loaiKhachHang === "doanhNghiep") {
+        inputSoKetNoi.disabled = false;
+        inputSoKetNoi.style.display = "block";
+      } else {
+        inputSoKetNoi.disabled = true;
+        inputSoKetNoi.style.display = "none";
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Bài 2</title>
+</head>
+<body>
+  <h1>Tính tiền điện</h1>
+  <label for="ten">Tên khách:</label>
+  <input type="text" id="ten" required><br><br>
+  <label for="soKW">Số KW tiêu thụ:</label>
+  <input type="number" id="soKW" required><br><br>
+  <button onclick="tinhTien()">Tính tiền</button><br><br>
+  <p id="ketQua"></p>
+  <p id="tienTra"></p>
+
+  <script>
+    function tinhTien() {
+      var ten = document.getElementById("ten").value;
+      var soKW = parseFloat(document.getElementById("soKW").value);
+      var tien = 0;
+      if (soKW <= 50) {
+        tien = soKW * 500;
+      } else if (soKW <= 100) {
+        tien = 50 * 500 + (soKW - 50) * 650;
+      } else if (soKW <= 150) {
+        tien = 50 * 500 + 50 * 650 + (soKW - 100) * 850;
+      } else {
+        tien = 50 * 500 + 50 * 650 + 50 * 850 + (soKW - 150) * 1100;
+      }
+      tien = tien * 1300;
+      document.getElementById("ketQua").innerHTML = "Tên khách hàng: " + ten;
+      document.getElementById("tienTra").innerHTML = "Tiền trả: " + tien + " đồng";
+    }
+  </script>
+</body>
+</html>
